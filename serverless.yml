@@ -1,0 +1,30 @@
+org: h3lltronik
+app: accountant-tools-api
+service: accountant-chatbot
+
+frameworkVersion: "3"
+
+plugins:
+  - serverless-offline
+  - serverless-jetpack
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  timeout: 30
+  logRetentionInDays: 1
+  memorySize: 2048
+  region: us-east-1
+
+functions:
+  main:
+    handler: dist/main.lambdaHandler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: "{proxy+}"
+
+useDotenv: true
